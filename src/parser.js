@@ -1,6 +1,6 @@
 import * as acron from 'acorn';
 
-export function parse(content) {
+export default function parse(content) {
     //i is the pointer to the char of the string, what characters 
     // we are looking at , and what we are trying to parse!
     let i = 0;
@@ -57,16 +57,57 @@ export function parse(content) {
         }
     }
 
-    function parseAttributeList() { }
+    function parseAttributeList() {
+        const attributes = [];
+        skipWhiteSpaces();
+        while (!match('>')) {
+            attributes.push(parseAttribute());
+            skipWhiteSpaces();
+        }
+        return attributes;
+    }
 
-    function parseAttribute() { }
+    function parseAttribute() {
+        //parse the value and eat away the js
+        const name = readWhileMatching(/[^=]/);
+        eat('={');
+        const value = parseJS();
+        eat('}=');
+        return {
+            type: 'Attribute',
+            name,
+            value,
+        };
+    }
 
-    function parseExpression() { }
+    function parseExpression() {
+        //parse js and eat away curly brackets
+        if (match('{')) {
+            eat('{');
+            const expression = parseJS();
+            eat('}');
+            return {
+                type: 'Expression',
+                expression,
+            }
+        }
+    }
 
-    function parseText() { }
+    function parseText() {
+        //read any characters that is not </> or {}
+        const text = readWhileMatching(/[^<{]/);
+        if (text.trim() !== '') {
+            return {
+                type: 'Text',
+                value: text,
+            }
+        }
+    }
 
     function parseJS() {
-
+        const js = acron.parseExpressionAt(content, i, { ecmaVersion: 2022 });
+        i = js.end;
+        return js;
     }
 
 
@@ -95,7 +136,8 @@ export function parse(content) {
         return content.slice(startIndex, i);
     }
 
-
-
+    function skipWhiteSpaces() {
+        readWhileMatching(/[\s\n]/);
+    }
 
 }
