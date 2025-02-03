@@ -23,6 +23,9 @@ export default function analyze(ast) {
             if (map.has(node)) {
                 currentScope = map.get(node);
             }
+            if (node.type === "UpdateExpression" && currentScope.find_owner(node.argument.name) === rootScope) {
+                result.willChange.add(node.argument.name);
+            }
         },
         leave(node) {
             if (map.has(node)) {
@@ -30,6 +33,26 @@ export default function analyze(ast) {
             }
         }
     });
+
+
+    function traverse(fragment) {
+        switch (fragment.type) {
+            case 'Element':
+                fragment.children.forEach(child => traverse(child));
+                fragment.attributes.forEcah(attribute => traverse(attribute));
+                break;
+            case 'Attribute':
+                //assume that the all the value of the attributes that we are using template 
+                result.willUseInTemplate.add(fragment.value.name);
+                break;
+            case 'Expression':
+                result.willUseInTemplate.add(fragment.expression.name);
+                break;
+        }
+    }
+
+
+    ast.html.forEach((fragment) => traverse(fragment));
 
 
 
