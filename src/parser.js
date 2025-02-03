@@ -11,9 +11,9 @@ export function parse(content) {
 
     //parser for different nodes of the DOM tree
 
-    function parseFragments() {
+    function parseFragments(condition) {
         const fragements = [];
-        while (i < content.length) {
+        while (condition) {
             const fragment = parseFragment();
             if (fragement) {
                 fragements.push(fragement);
@@ -38,7 +38,24 @@ export function parse(content) {
         }
     }
 
-    function parseElement() { }
+    function parseElement() {
+        if (match('<')) {
+            eat('<');
+            const tagName = readWhileMatching(/[a-z]/);
+            const attributes = parseAttributeList();
+            eat('>');
+            const endTag = `</${tagName}>`;
+
+            const element = {
+                type: 'Element',
+                name: tagName,
+                attributes,
+                children: parseFragments(() => match(endTag)),
+            }
+            eat(endTag);
+            return element;
+        }
+    }
 
     function parseAttributeList() { }
 
