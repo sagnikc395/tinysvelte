@@ -3,6 +3,10 @@
 Building our own Svelte, from [Li Huatan's Video Series](https://www.youtube.com/watch?v=mwvyKGw2CzU&list=PLoKaNN3BjQX1OQmFzK9SJnFXEurm1-UxQ).
 
 
+- svelte source code -> parsed -> Abstract Syntax Tree(here the DOM).
+- AST -> analyse code -> varaibales {counter,incre,dec..} , will change -> {counter}
+
+- 
 
 
 To install dependencies:
