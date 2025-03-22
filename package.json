@@ -1,9 +1,9 @@
 {
   "name": "our-svelte",
-  "module": "./src/index.js",
+  "module": "./src/index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "^1.2.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
