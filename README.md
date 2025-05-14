@@ -1,4 +1,4 @@
-# our-svelte ☭
+# our-svelte 
 
 Building our own Svelte, from [Li Huatan's Video Series](https://www.youtube.com/watch?v=mwvyKGw2CzU&list=PLoKaNN3BjQX1OQmFzK9SJnFXEurm1-UxQ).
 
