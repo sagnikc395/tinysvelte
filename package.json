@@ -1,17 +1,25 @@
 {
-  "name": "our-svelte",
-  "module": "./src/index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "^1.2.5"
+  "name": "tinysvelte",
+  "version": "0.1.0",
+  "description": "making our JS framework like svelte",
+  "keywords": [
+    "svelte",
+    "tiny-svelte",
+    "js-framework"
+  ],
+  "homepage": "https://github.com/sagnikc395/tinysvelte#readme",
+  "bugs": {
+    "url": "https://github.com/sagnikc395/tinysvelte/issues"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagnikc395/tinysvelte.git"
   },
-  "dependencies": {
-    "acorn": "^8.14.0",
-    "escodegen": "^2.1.0",
-    "estree-walker": "^3.0.3",
-    "periscopic": "^4.0.2"
+  "license": "MIT",
+  "author": "Sagnik Chatterjee",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
   }
 }
