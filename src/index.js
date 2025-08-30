@@ -17,9 +17,30 @@ function parse(content) {
 
   return ast;
 
-  function pasrseFraments() {}
-  function parseFragment() {}
-  function parseScript() {}
+  function parseFragments() {
+    const fragments = [];
+    while (i < content.length) {
+      const fragment = parseFragment();
+      if (fragment) {
+        fragments.push(fragment);
+      }
+    }
+    return fragments;
+  }
+  function parseFragment() {
+    return parseScript() ?? parseElement() ?? parseExpression() ?? parseText();
+  }
+  function parseScript() {
+    if (match("<script>")) {
+      eat("<script>");
+      const startIndex = i;
+      const endIndex = content.indexOf("</script>", i);
+      const code = content.slice(startIndex, endIndex);
+      //using acorn to parse js
+      i = endIndex;
+      eat("</script>");
+    }
+  }
   function parseElement() {}
   function parseAttributeList() {}
   function parseExpression() {}
